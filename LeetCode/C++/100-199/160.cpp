@@ -59,18 +59,6 @@ public:
     }
 };
 
-void traverseNode(ListNode* head)
-{
-    cout << "Start traversal" << endl;
-    while(head!=NULL)
-    {
-        cout << head->val << endl;
-        head = head->next;
-    }
-    cout << "Finish traversal" << endl;
-}
-
-
 int main()
 {
     ListNode* nodeA1 = new ListNode(4);
