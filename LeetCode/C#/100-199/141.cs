@@ -1,6 +1,6 @@
 using System;
 
-namespace LeetCode160
+namespace LeetCode141
 {
      /**
     * Definition for singly-linked list.
