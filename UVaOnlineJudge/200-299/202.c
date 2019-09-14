@@ -4,13 +4,10 @@ int pos[3005];
 int main()
 {
     int i,j,m,n;
-    int tempM, tempN;
     int quotient, remainder;
     int maxLen = 50;
     int cycleLen;
     while(scanf("%d %d", &m, &n) == 2){
-        tempM = m;
-        tempN = n;
 
         for(i = 0 ; i < n;++i)
         {
