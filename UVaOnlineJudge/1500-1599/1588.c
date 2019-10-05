@@ -27,8 +27,6 @@ int main()
             }
             if(isOk)
             {
-                j--;
-                k--;
                 int curLen = (i + len2) < len1 ? len1 : i + len2;
                 if(curLen < minLen)
                 {
@@ -51,8 +49,6 @@ int main()
             }
             if(isOk)
             {
-                j--;
-                k--;
                 int curLen = (i + len1) < len2 ? len2 : i + len1;
                 if(curLen < minLen)
                 {
