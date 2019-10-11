@@ -2,31 +2,28 @@
 #include <stdlib.h>
 #include <string.h>
 
-char maps[10000][100];
+char maps[8][100];
 char originS[10000];
-int bases[8] = {1, 2, 5, 12, 27, 58, 121, 248};
-void setKey(char c, int n)
+void setKey(int n)
 {
-    int i;
+    int i,j;
+    int maxJ;
+    int counts = 0;
     char s[10];
-    for(i = 0 ; i < 7;++i)
+    for(i = 1 ; i <= 7;++i)
     {
-        if(n >= bases[i] && n < bases[i+1])
+        maxJ = (1 << i)-1;
+        for(j = 0;j < maxJ;++j)
         {
-            int base = n - bases[i];
-            int j = i;
-            s[j+1] = '\0';
-            while(base > 0)
+            maps[i-1][j] = originS[counts];
+            counts++;
+            if(counts == n)
             {
-                s[j--] = (base % 2) + '0';
-                base /= 2;
+                break;
             }
-            while(j >= 0)
-            {
-                s[j--] = '0';
-            }
-            strcpy(maps[n-1], s);
-            originS[n-1] = c;
+        }
+        if(counts == n)
+        {
             break;
         }
     }
@@ -58,20 +55,29 @@ int getKey(int len)
         return -1;
     }
 
-    i = bases[len-1] - 1;
-    for(;;++i)
-    {
-        if(strcmp(maps[i], s) == 0)
-        {
-            return originS[i];
-        }
-    }
+    int sum = getDecimal(s);
 
+    return maps[len-1][sum];
+}
+
+int getDecimal(char *s)
+{
+    int i = strlen(s) - 1;
+    int sum = 0, base = 1;
+    for(;i >= 0;--i)
+    {
+        if(s[i] == '1')
+        {
+            sum += base;
+        }
+        base *= 2;
+    }
+    return sum;
 }
 
 int getLen()
 {
-    char s[10];
+    char s[10] = {'\0'};
     int j;
     for(j = 0 ; j < 3;++j)
     {
@@ -83,16 +89,7 @@ int getLen()
         }
         s[j] = c;
     }
-    int i = 2;
-    int sum = 0, base = 1;
-    for(;i >= 0;--i)
-    {
-        if(s[i] == '1')
-        {
-            sum += base;
-        }
-        base *= 2;
-    }
+    int sum = getDecimal(s);
 
     return sum;
 }
@@ -100,18 +97,20 @@ int getLen()
 int main()
 {
     char c;
-    int counts = 1;
+    int counts = 0;
     while((c = getchar()) != EOF)
     {
-        setKey(c, counts++);
+        originS[counts++] = c;
         while(c = getchar())
         {
             if(c == '\n')
             {
+                originS[counts] = '\0';
                 break;
             }
-            setKey(c, counts++);
+            originS[counts++] = c;
         }
+        setKey(counts);
 
         do
         {
@@ -128,12 +127,12 @@ int main()
                 {
                     break;
                 }
-                printf("%c", curC);
+                printf("%c", (char)curC);
             }while(1);
         }while(1);
 
         printf("\n");
-        counts = 1;
+        counts = 0;
     }
     return 0;
 }
