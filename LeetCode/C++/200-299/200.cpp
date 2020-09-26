@@ -1,3 +1,8 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+
 class Solution {
 private:
     const int dx[4] = {1,0,-1,0};
@@ -48,3 +53,19 @@ public:
         return ans;
     }
 };
+
+int main() {
+	
+	vector<vector<char>> grid;
+	vector<char> row1{'1', '1', '0', '0', '0'};
+	vector<char> row2{'1', '1', '0', '0', '0'};
+	vector<char> row3{'0', '0', '1', '0', '0'};
+	vector<char> row4{'0', '0', '0', '1', '1'};
+	grid.push_back(row1);
+	grid.push_back(row2);
+	grid.push_back(row3);
+	grid.push_back(row4);
+	Solution sol;
+	cout << sol.numIslands(grid) << endl;
+	return 0;
+}
